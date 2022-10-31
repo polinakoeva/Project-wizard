@@ -1,7 +1,6 @@
-//тук ще дефинираме всички DOM-обекти
+//Tук ще дефинираме всички DOM-обекти
 
 function initGameObject() {
-
     const startScreen = document.querySelector('.start-screen');
     const gameScreen = document.querySelector('.game-screen');
 
