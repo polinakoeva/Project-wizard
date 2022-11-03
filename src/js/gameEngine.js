@@ -6,6 +6,7 @@ function start(state, game){
 }
 
 function gameLoop(state, game) {
+    console.log(state.keys);
 
     window.requestAnimationFrame(gameLoop.bind(null, state, game)); //и тук тъй като фунцкията всеки път ще си го извиква този window.requestAnimationFrame(gameLoop), ще получим безкраен цикъл
 

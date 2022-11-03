@@ -7,7 +7,8 @@ function initState() {
             height: 100,
             startX: Math.floor(Math.random() * 1000), //всеки път wizard-aще е на различно място
             startY: Math.floor(Math.random() * 500), //всеки път wizard-aще е на различно място
-        }
+        },
+        keys: {}
     }
     return state;
 }
