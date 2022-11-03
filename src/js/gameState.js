@@ -10,6 +10,7 @@ function initState() { // тази функция сме я кръстили sta
             height: 100,
             posX: startX,
             posY: startY, //това са текущите позиции на wizard
+            speed: 10,
         },
         keys: {}
     }
