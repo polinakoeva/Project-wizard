@@ -6,7 +6,7 @@ function initState() { // тази функция сме я кръстили sta
     const state =  {
         player: 'Pesho',
         wizard: {
-            width: 82,
+            width: 100,
             height: 100,
             posX: startX,
             posY: startY, //това са текущите позиции на wizard

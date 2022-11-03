@@ -11,19 +11,19 @@ function gameLoop(state, game) {
     
     // Move wizard
     if (state.keys.KeyA) {
-        wizard.posX -= speed; //за да се движи наляво трябва да изваждаме и по този нажин wizard-a отива към x-координатата, т.к сме си направили координатната система наобратно
+        wizard.posX = Math.max(wizard.posX - wizard.speed, 0); 
     }
 
-    if (state.keys.KeyS) { //за да се движи надолу, пишем плюс, т.к. wizad-a тръгва отгоре надолу
-        wizard.posY += speed;
+    if (state.keys.KeyS) {
+        wizard.posY = Math.min(wizard.posY + wizard.speed, game.gameScreen.offsetHeight - wizard.height); // с game.gameScreen.offsetHeight вземаме максималната стойност на екрана, като тук position-a се увеличава и затова е плюс и накрая изваждаме самата височина на wizard-a, защото иначе ще се скрие точно с толкова, колкото е неговата височина, т.к. взема точката от горния ляв ъгъл на wizard-a
     }
 
     if (state.keys.KeyD) {
-        wizard.posX += speed; // за надясно прибавяме
+        wizard.posX = Math.min(wizard.posX + wizard.speed, game.gameScreen.offsetWidth - wizard.width);
     }
-
+    
     if (state.keys.KeyW) { // тук не пишем else if, а само if, защото по този начин нашия wizard може да с едвижи едновремнно нагоре и надясно, т.е. по диагонал
-        wizard.posY -= speed; // тук пишем минус, защото като си представим диаграмамта x и y, нашия wizard тръгва от горе надолу, т.е ако прибавяме, той ще се движи нагоре, а като изваждаме, се движи надолу 
+        wizard.posY = Math.max(wizard.posY - wizard.speed, 0); // Правим го с Math.max, за да вземем по-високата стойност или 0 и по този начин шапката му няма да отива по-нагоре и да излиза извън полето.  
     }
 
     //Render
