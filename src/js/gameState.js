@@ -1,12 +1,15 @@
 // тук ще държим цялата информация за текущото състояние на нашата игра
-function initState() {
+function initState() { // тази функция сме я кръстили state
+    let startX = Math.floor(Math.random() * 1000); // Това ни е start position-a всеки път wizard-aще е на различно място
+    let startY = Math.floor(Math.random() * 500); // Това ни е start position-a всеки път wizard-aще е на различно място
+
     const state =  {
         player: 'Pesho',
         wizard: {
             width: 82,
             height: 100,
-            startX: Math.floor(Math.random() * 1000), //всеки път wizard-aще е на различно място
-            startY: Math.floor(Math.random() * 500), //всеки път wizard-aще е на различно място
+            posX: startX,
+            posY: startY, //това са текущите позиции на wizard
         },
         keys: {}
     }
