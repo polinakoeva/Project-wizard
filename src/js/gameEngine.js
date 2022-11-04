@@ -6,11 +6,25 @@ function start(state, game){
 }
 
 function gameLoop(state, game) {
-    const { wizard } = state; // wizard-a си го деконструираме от state-a и вместо навсякъде надолу да пишем state.wizard ще пишем само wizard, тък като ще се използва супер много
+    const { wizard } = state; // wizard-a си го деконструираме от state-a и вместо навсякъде надолу да пишем state.wizard ще пишем само wizard, тъй като той ще се използва много пъти
     const { wizardElement } = game; //същото нещо правим и с wizardElement-a, за да не го вземаме всеки път от game-a с game.wizardElement
     
-    // Move wizard
-    if (state.keys.KeyA) {
+    modifyWizardPosition(state, game);
+
+    // Spawn bugs
+    game.createBug(state.bugStats);
+
+    //Render
+    wizardElement.style.left = wizard.posX + 'px'; // !!!Задължително трябва да пишем 'px', иначе не работи!!! Тук казваме, че искаме стила left на wizartElement-a да е равно на стойността, която вече имаме в state-a
+    wizardElement.style.top = wizard.posY + 'px';
+
+    window.requestAnimationFrame(gameLoop.bind(null, state, game)); //и тук тъй като фунцкията всеки път ще си го извиква този window.requestAnimationFrame(gameLoop), ще получим безкраен цикъл
+}
+
+function modifyWizardPosition(state, game) {
+     const { wizard } = state;
+      
+     if (state.keys.KeyA) {
         wizard.posX = Math.max(wizard.posX - wizard.speed, 0); 
     }
 
@@ -21,15 +35,10 @@ function gameLoop(state, game) {
     if (state.keys.KeyD) {
         wizard.posX = Math.min(wizard.posX + wizard.speed, game.gameScreen.offsetWidth - wizard.width);
     }
-    
+
     if (state.keys.KeyW) { // тук не пишем else if, а само if, защото по този начин нашия wizard може да с едвижи едновремнно нагоре и надясно, т.е. по диагонал
         wizard.posY = Math.max(wizard.posY - wizard.speed, 0); // Правим го с Math.max, за да вземем по-високата стойност или 0 и по този начин шапката му няма да отива по-нагоре и да излиза извън полето.  
     }
 
-    //Render
-    wizardElement.style.left = wizard.posX + 'px'; // !!!Задължително трябва да пишем 'px', иначе не работи!!! Тук казваме, че искаме стила left на wizartElement-a да е равно на стойността, която вече имаме в state-a
-    wizardElement.style.top = wizard.posY + 'px';
-
-    window.requestAnimationFrame(gameLoop.bind(null, state, game)); //и тук тъй като фунцкията всеки път ще си го извиква този window.requestAnimationFrame(gameLoop), ще получим безкраен цикъл
 
 }
