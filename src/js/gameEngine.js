@@ -2,17 +2,22 @@
 function start(state, game){
     game.createWizard(state.wizard); 
 
-    window.requestAnimationFrame(gameLoop.bind(null, state, game)); //това върши ролята на безкраен цикъл. Браузъра сам определя кога да забързва или забавя скоростта на цикъла
+    window.requestAnimationFrame(timestamp => gameLoop(state, game, timestamp)); //това върши ролята на безкраен цикъл. Браузъра сам определя кога да забързва или забавя скоростта на цикъла. Timestamp означава времевия отпечатък от стартирането на нашия animation frame
 }
 
-function gameLoop(state, game) {
+function gameLoop(state, game, timestamp) {
     const { wizard } = state; // wizard-a си го деконструираме от state-a и вместо навсякъде надолу да пишем state.wizard ще пишем само wizard, тъй като той ще се използва много пъти
     const { wizardElement } = game; //същото нещо правим и с wizardElement-a, за да не го вземаме всеки път от game-a с game.wizardElement
     
     modifyWizardPosition(state, game);
 
     // Spawn bugs
-    game.createBug(state.bugStats);
+    if(timestamp > state.bugStats.nextSpawnTimestamp) {
+        game.createBug(state.bugStats);
+        state.bugStats.nextSpawnTimestamp = timestamp + Math.random() * state.bugStats.maxSpawnInterval; // вземаме текущия timestamp, към него добавяме random-a, който на практика е от 0 до 1 и го умножаваме по state.bugStats.maxSpawnInterval, което в случая е 3000. Това ще е някава random част от 3000ms. И дефакто когато следващия timestamp стане > nextSpawnTimestamp, тогава отк=ново ше spaw-не нов bug и тогава ще преизчисли
+
+    }
+
 
     //Render
     wizardElement.style.left = wizard.posX + 'px'; // !!!Задължително трябва да пишем 'px', иначе не работи!!! Тук казваме, че искаме стила left на wizartElement-a да е равно на стойността, която вече имаме в state-a
