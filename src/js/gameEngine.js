@@ -15,13 +15,23 @@ function gameLoop(state, game, timestamp) {
     if(timestamp > state.bugStats.nextSpawnTimestamp) {
         game.createBug(state.bugStats);
         state.bugStats.nextSpawnTimestamp = timestamp + Math.random() * state.bugStats.maxSpawnInterval; // вземаме текущия timestamp, към него добавяме random-a, който на практика е от 0 до 1 и го умножаваме по state.bugStats.maxSpawnInterval, което в случая е 3000. Това ще е някава random част от 3000ms. И дефакто когато следващия timestamp стане > nextSpawnTimestamp, тогава отк=ново ше spaw-не нов bug и тогава ще преизчисли
+    }    
+    
+    // Render bugs
+    document.querySelectorAll('.bug').forEach(bug => {
+        let posX = parseInt(bug.style.left); // Тук си вземаме стойността в момента. ParseInt парсва до там, докъдето има цифри и другото го игнорира
+        
+        bug.style.left = posX - state.bugStats.speed + 'px'; // на текущия bug искам да му вземеш стила left и да му кажеш, че е равен на  posX - скоростта и задължително добавяме 'px' и това е за всеки един от бъговете. Това ще хване всичките бъгове и на всеки един фрейм ще ги премести с по 10px
 
-    }
+
+    });
 
 
-    //Render
+    //Render wizard
     wizardElement.style.left = wizard.posX + 'px'; // !!!Задължително трябва да пишем 'px', иначе не работи!!! Тук казваме, че искаме стила left на wizartElement-a да е равно на стойността, която вече имаме в state-a
     wizardElement.style.top = wizard.posY + 'px';
+
+
 
     window.requestAnimationFrame(gameLoop.bind(null, state, game)); //и тук тъй като фунцкията всеки път ще си го извиква този window.requestAnimationFrame(gameLoop), ще получим безкраен цикъл
 }
