@@ -21,6 +21,11 @@ function initState() { // тази функция сме я кръстили sta
             speed: 8,
         },
 
+        fireball: {
+            width: 20,
+            height: 20,
+        },
+
         keys: {
             KeyA: false, //false означава, че не е натиснат
             KeyS: false,
