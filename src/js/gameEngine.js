@@ -21,9 +21,11 @@ function gameLoop(state, game, timestamp) {
     document.querySelectorAll('.bug').forEach(bug => {
         let posX = parseInt(bug.style.left); // Тук си вземаме стойността в момента. ParseInt парсва до там, докъдето има цифри и другото го игнорира
         
-        bug.style.left = posX - state.bugStats.speed + 'px'; // на текущия bug искам да му вземеш стила left и да му кажеш, че е равен на  posX - скоростта и задължително добавяме 'px' и това е за всеки един от бъговете. Това ще хване всичките бъгове и на всеки един фрейм ще ги премести с по 10px
-
-
+        if (posX > 0) {
+            bug.style.left = posX - state.bugStats.speed + 'px'; // на текущия bug искам да му вземеш стила left и да му кажеш, че е равен на  posX - скоростта и задължително добавяме 'px' и това е за всеки един от бъговете. Това ще хване всичките бъгове и на всеки един фрейм ще ги премести с по 10px
+        } else {
+            bug.remove();
+        }
     });
 
 
