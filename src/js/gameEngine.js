@@ -2,7 +2,7 @@
 function start(state, game){
     game.createWizard(state.wizard); 
 
-    window.requestAnimationFrame(timestamp => gameLoop(state, game, timestamp)); //това върши ролята на безкраен цикъл. Браузъра сам определя кога да забързва или забавя скоростта на цикъла. Timestamp означава времевия отпечатък от стартирането на нашия animation frame
+    window.requestAnimationFrame(gameLoop.bind(null, state, game)); //това върши ролята на безкраен цикъл. Браузъра сам определя кога да забързва или забавя скоростта на цикъла. Timestamp означава времевия отпечатък от стартирането на нашия animation frame
 }
 
 function gameLoop(state, game, timestamp) {
@@ -10,6 +10,12 @@ function gameLoop(state, game, timestamp) {
     const { wizardElement } = game; //същото нещо правим и с wizardElement-a, за да не го вземаме всеки път от game-a с game.wizardElement
     
     modifyWizardPosition(state, game);
+
+    if (state.keys.Space) { //ако Space-бутона е натиснат 
+        game.wizardElement.style.backgroundImage = 'url("/src/images/wizard-fire.png")'
+    } else {
+        game.wizardElement.style.backgroundImage = 'url("/src/images/wizard.png")'
+    }
 
     // Spawn bugs
     if(timestamp > state.bugStats.nextSpawnTimestamp) {

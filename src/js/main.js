@@ -6,6 +6,7 @@ const availableKeys = [
     'KeyS',
     'KeyD',
     'KeyW',
+    'Space',
 ];
 
 document.addEventListener('keydown', (e) => { //keydown използваме, коагто искаме да натиснем и задържим, за да се мести героя ни постоянно

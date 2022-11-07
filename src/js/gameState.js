@@ -22,10 +22,11 @@ function initState() { // тази функция сме я кръстили sta
         },
 
         keys: {
-            KeyA: false,
+            KeyA: false, //false означава, че не е натиснат
             KeyS: false,
             KeyD: false,
             KeyW: false,
+            Space: false,
         }
     }
     return state;
