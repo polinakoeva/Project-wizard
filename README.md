@@ -1,2 +1,2 @@
 # Project-wizard
-Workshop-1
+Workshop
