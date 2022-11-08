@@ -1,8 +1,6 @@
-// тук ще държим цялата информация за текущото състояние на нашата игра
-function initState() { // тази функция сме я кръстили state
-    let startX = Math.floor(Math.random() * 1000); // Това ни е start position-a всеки път wizard-aще е на различно място
-    let startY = Math.floor(Math.random() * 500); // Това ни е start position-a всеки път wizard-aще е на различно място
-
+function initState() { 
+    let startX = Math.floor(Math.random() * 1000); 
+    let startY = Math.floor(Math.random() * 500);
     const state =  {
         player: 'Pesho',
         gameOver: false,
@@ -13,7 +11,7 @@ function initState() { // тази функция сме я кръстили sta
             width: 100,
             height: 100,
             posX: startX,
-            posY: startY, //това са текущите позиции на wizard
+            posY: startY, 
             speed: 10,
         },
 
@@ -34,7 +32,7 @@ function initState() { // тази функция сме я кръстили sta
         },
 
         keys: {
-            KeyA: false, //false означава, че не е натиснат
+            KeyA: false,
             KeyS: false,
             KeyD: false,
             KeyW: false,
