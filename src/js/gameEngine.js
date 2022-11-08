@@ -26,7 +26,8 @@ function gameLoop(state, game, timestamp) {
     }  
          
     // Render bugs
-    document.querySelectorAll('.bug').forEach(bug => {
+    let bugElements = document.querySelectorAll('.bug');
+    bugElements.forEach(bug => {
         let posX = parseInt(bug.style.left); // Тук си вземаме стойността в момента. ParseInt парсва до там, докъдето има цифри и другото го игнорира
         
         if (posX > 0) {
@@ -39,6 +40,14 @@ function gameLoop(state, game, timestamp) {
     // Render fireballs
     document.querySelectorAll('.fireball').forEach(fireball => {
         let posX = parseInt(fireball.style.left); // вземаме позицията Х на fireball-a
+
+        // Detect collision
+        bugElements.forEach(bug => {
+            if(detectCollision(bug, fireball)) { //проверяваме дали между този конкретен bug и този конкретен fireball има collision
+                bug.remove();
+                fireball.remove();
+            }
+        });
 
         if (posX > game.gameScreen.offsetWidth) {
             fireball.remove(); // за да не продължава извън екрана
@@ -76,6 +85,13 @@ function modifyWizardPosition(state, game) {
     if (state.keys.KeyW) { // тук не пишем else if, а само if, защото по този начин нашия wizard може да с едвижи едновремнно нагоре и надясно, т.е. по диагонал
         wizard.posY = Math.max(wizard.posY - wizard.speed, 0); // Правим го с Math.max, за да вземем по-високата стойност или 0 и по този начин шапката му няма да отива по-нагоре и да излиза извън полето.  
     }
+}
 
+function detectCollision(objectA, objectB) {
+    let first = objectA.getBoundingClientRect();
+    let second = objectB.getBoundingClientRect();
 
+    let hasCollision = !(first.top > second.bottom || first.bottom < second.top || first.right < second.left || first.left > second.right); // ако всичките условия не са верни имаме сблъсък
+
+    return hasCollision;
 }
