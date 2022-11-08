@@ -9,6 +9,7 @@ function gameLoop(state, game, timestamp) {
     const { wizard } = state; // wizard-a си го деконструираме от state-a и вместо навсякъде надолу да пишем state.wizard ще пишем само wizard, тъй като той ще се използва много пъти
     const { wizardElement } = game; //същото нещо правим и с wizardElement-a, за да не го вземаме всеки път от game-a с game.wizardElement
     
+    game.scoreScreen.textContent = `${state.score} pts.`
     modifyWizardPosition(state, game);
 
     if (state.keys.Space) { //ако Space-бутона е натиснат 
@@ -52,6 +53,7 @@ function gameLoop(state, game, timestamp) {
         // Detect collision
         bugElements.forEach(bug => {
             if(detectCollision(bug, fireball)) { //проверяваме дали между този конкретен bug и този конкретен fireball има collision
+                state.score += state.killScore;
                 bug.remove();
                 fireball.remove();
             }
@@ -69,8 +71,9 @@ function gameLoop(state, game, timestamp) {
     wizardElement.style.top = wizard.posY + 'px';
 
     if (state.gameOver) {
-        alert('Game Over');
+        alert(`Game Over - You had ${state.score} pts.`);
     } else {
+        state.score += state.scoreRate;
         window.requestAnimationFrame(gameLoop.bind(null, state, game)); //и тук тъй като фунцкията всеки път ще си го извиква този window.requestAnimationFrame(gameLoop), ще получим безкраен цикъл
 
 

@@ -3,10 +3,12 @@
 function initGameObject() { // тази функция сме кръстили game
     const startScreen = document.querySelector('.start-screen');
     const gameScreen = document.querySelector('.game-screen');
+    const scoreScreen = document.querySelector('.score');
     
     return {
         startScreen,
         gameScreen,
+        scoreScreen,
         createWizard(initialState){
             let wizardElement = document.createElement('div'); // wizardElement е DOM-елемента, който е wizard, а само wizard e обекта с данните, свързани с wizard-а
             wizardElement.classList.add('wizard'); 

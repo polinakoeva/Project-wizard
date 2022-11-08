@@ -6,6 +6,9 @@ function initState() { // тази функция сме я кръстили sta
     const state =  {
         player: 'Pesho',
         gameOver: false,
+        score: 0,
+        scoreRate: 1,
+        killScore: 1000, 
         wizard: {
             width: 100,
             height: 100,
