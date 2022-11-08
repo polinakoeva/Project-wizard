@@ -24,6 +24,7 @@ function initState() { // тази функция сме я кръстили sta
         fireball: {
             width: 20,
             height: 20,
+            speed: 12,
         },
 
         keys: {

@@ -23,8 +23,8 @@ function gameLoop(state, game, timestamp) {
     if(timestamp > state.bugStats.nextSpawnTimestamp) {
         game.createBug(state.bugStats);
         state.bugStats.nextSpawnTimestamp = timestamp + Math.random() * state.bugStats.maxSpawnInterval; // вземаме текущия timestamp, към него добавяме random-a, който на практика е от 0 до 1 и го умножаваме по state.bugStats.maxSpawnInterval, което в случая е 3000. Това ще е някава random част от 3000ms. И дефакто когато следващия timestamp стане > nextSpawnTimestamp, тогава отк=ново ше spaw-не нов bug и тогава ще преизчисли
-    }    
-    
+    }  
+         
     // Render bugs
     document.querySelectorAll('.bug').forEach(bug => {
         let posX = parseInt(bug.style.left); // Тук си вземаме стойността в момента. ParseInt парсва до там, докъдето има цифри и другото го игнорира
@@ -35,6 +35,18 @@ function gameLoop(state, game, timestamp) {
             bug.remove();
         }
     });
+
+    // Render fireballs
+    document.querySelectorAll('.fireball').forEach(fireball => {
+        let posX = parseInt(fireball.style.left); // вземаме позицията Х на fireball-a
+
+        if (posX > game.gameScreen.offsetWidth) {
+            fireball.remove(); // за да не продължава извън екрана
+        } else {
+            fireball.style.left = posX + state.fireball.speed + 'px'; // по този начин местим fireball-a надясно 
+        }
+    });
+
 
 
     //Render wizard
